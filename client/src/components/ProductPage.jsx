@@ -1,12 +1,14 @@
 import React from 'react';
 import ProductButtons from './ProductButtons';
 
-const ProductPage = ({ product, cartItems, setCartItems }) => {
+export default function ProductPage({ product, cartItems, setCartItems }) {
   const handleAddToCart = () => {
-    // Create a new array with the existing cart items and add the current product
-    const newCartItems = [...cartItems, product];
-    // Update the cartItems state with the new array
-    setCartItems(newCartItems);
+    const existingCartItem = cartItems.find(item => item.ProductID === product.ProductID);
+
+    if (existingCartItem) {
+      return;
+    }
+    setCartItems([...cartItems, { ...product, count: 1 }]);
   };
 
   return (
@@ -20,6 +22,4 @@ const ProductPage = ({ product, cartItems, setCartItems }) => {
       </aside>
     </>
   );
-};
-
-export default ProductPage;
+}

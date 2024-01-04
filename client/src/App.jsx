@@ -28,7 +28,7 @@ const App = () => {
     <React.Fragment>
 
     <div className='bg-blue-50  min-h-screen pt-5'>
-      <SearchBar />
+      <SearchBar setProducts={setProducts}/>
 
       <main className='flex'>
         <div className='  w-3/4'>
@@ -43,7 +43,7 @@ const App = () => {
         </div>
         <section className=' w-1/4'>
           <h1 className='mt-10 text-3xl text-center'> Cart </h1>  
-           {cartItems &&  <CartItems cartItems={cartItems} />}
+           {cartItems &&  <CartItems cartItems={cartItems} setCartItems={setCartItems} />}
         </section>
       </main>
 

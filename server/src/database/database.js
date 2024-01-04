@@ -45,6 +45,30 @@ export async function getProductsByCategory(categoryName) {
   }
 }
 
+export async function searchProducts(query) {
+  try {
+    // Execute the SQL query to search for products by name or description using CONCAT
+    const [rows] = await pool.query(`
+      SELECT
+        ProductID,
+        ProductName,
+        Description,
+        Price,
+        StockQuantity
+      FROM
+        Products
+      WHERE
+        CONCAT(ProductName, ' ', Description) LIKE ?
+    `, [`%${query}%`]);
+
+    return rows;
+  } catch (error) {
+    console.error('Error executing SQL query:', error);
+    throw error;
+  }
+}
+
+
 export async function getProducts() {
   const [rows] = await pool.query('SELECT * FROM Products');
   return rows;

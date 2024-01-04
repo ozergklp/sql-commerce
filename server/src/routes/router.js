@@ -1,5 +1,5 @@
 import express from "express";
-import { getCategoires, getProducts, getProductsByCategory } from "../database/database.js";
+import { getCategoires, getProducts, getProductsByCategory, searchProducts } from "../database/database.js";
 
 const router = express.Router();
 
@@ -25,6 +25,16 @@ router.get('/categories/:category', async (req, res) => {
     const { category } = req.params
     try {
         const items = await getProductsByCategory(category);
+        res.json(items);
+    } catch (error) {
+        res.status(500).json({ error: 'Cannot find products'})
+    }
+})
+
+router.get('/products/search/:string', async (req, res) => {
+    const { string } = req.params
+    try {
+        const items = await searchProducts(string);
         res.json(items);
     } catch (error) {
         res.status(500).json({ error: 'Cannot find products'})
