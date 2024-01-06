@@ -4,6 +4,7 @@ import InsertComponent from './components/InsertComponent';
 import UpdateComponent from './components/UptadeOrderStatus';
 import DeleteComponent from './components/DeleteReview';
 import ButtonTwo from './ButtonTwo';
+import ButtonThree from './ButtonThree';
 
 const App = () => {
   const [result, setResult] = useState(null);
@@ -50,6 +51,11 @@ const App = () => {
       <Button label="Get Average Price by Category" endpoint="average-price-by-category" onClick={handleButtonClick} />
       <Button label="Get Average User Rating" endpoint="reviews/average-user-rating" onClick={handleButtonClick} />
       <Button label="Get Review Count by Product" endpoint="reviews/count-by-product" onClick={handleButtonClick} />
+
+      <ButtonThree label="Show All Reviews" endpoint="reviews/all" onClick={handleButtonClick} />
+      <ButtonThree label="Show All Orders" endpoint="orders/all" onClick={handleButtonClick} />
+      <ButtonThree label="Show All Suppliers" endpoint="suppliers/all" onClick={handleButtonClick} />
+      
 
       <ButtonTwo label="Insert New Supplier" endpoint="insert-new-supplier" onClick={handleButtonTwoClick} />
         <ButtonTwo label="Update Order Status" endpoint="update-order-status" onClick={handleButtonTwoClick} />

@@ -55,7 +55,7 @@ const UpdateComponent = () => {
           name="orderId"
           value={updateData.orderId}
           onChange={handleInputChange}
-          className='rounded-xl p-1 m-2'
+          className='rounded-xl p-1 m-2 text-black'
         />
   
       
@@ -65,7 +65,7 @@ const UpdateComponent = () => {
           name="newStatus"
           value={updateData.newStatus}
           onChange={handleInputChange}
-          className='rounded-xl p-1 m-2'
+          className='rounded-xl p-1 m-2 text-black'
         />
      
       <button onClick={handleUpdateStatus} className='bg-white text-blue-500 m-2 rounded-xl p-1'>Update Order Status</button>

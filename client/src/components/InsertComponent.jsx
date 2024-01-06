@@ -38,8 +38,9 @@ const InsertComponent = () => {
     }));
   };
 
-  const handleInsertSupplier = async () => {
+  const handleInsertSupplier = async (e) => {
     try {
+      e.preventDefault()
       const result = await insertNewSupplier(newSupplierData);
       console.log(result);
     } catch (error) {
@@ -56,7 +57,7 @@ const InsertComponent = () => {
         name="supplierName"
         value={newSupplierData.supplierName}
         onChange={handleInputChange}
-        className='mb-2 p-2 border rounded'
+        className='mb-2 p-2 border rounded text-black'
       />
       <input
         placeholder='Contact Person:'
@@ -64,7 +65,7 @@ const InsertComponent = () => {
         name="contactPerson"
         value={newSupplierData.contactPerson}
         onChange={handleInputChange}
-        className='mb-2 p-2 border rounded'
+        className='mb-2 p-2 border rounded text-black'
       />
       <input
         placeholder='Contact Email:'
@@ -72,7 +73,7 @@ const InsertComponent = () => {
         name="contactEmail"
         value={newSupplierData.contactEmail}
         onChange={handleInputChange}
-        className='mb-2 p-2 border rounded'
+        className='mb-2 p-2 border rounded text-black'
       />
       <input
         placeholder='Contact Phone:'
@@ -80,9 +81,9 @@ const InsertComponent = () => {
         name="contactPhone"
         value={newSupplierData.contactPhone}
         onChange={handleInputChange}
-        className='mb-2 p-2 border rounded'
+        className='mb-2 p-2 border rounded text-black'
       />
-      <button onClick={handleInsertSupplier} className='bg-white text-blue-500 p-2 rounded'>
+      <button onClick={(e) => handleInsertSupplier(e)} className='bg-white text-blue-500 p-2 rounded'>
         Insert New Supplier
       </button>
     </form>

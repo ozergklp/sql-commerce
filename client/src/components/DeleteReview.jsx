@@ -35,17 +35,19 @@ const DeleteComponent = () => {
   };
 
   return (
-    <div className='bg-blue-500 text-white w-1/3 mx-auto p-6 rounded-md flex flex-col'>
+    <div className='bg-blue-500 text-white w-1/3 mx-auto p-6 rounded-md flex flex-col items-center'>
       <h2>Delete Review</h2>
-      
-        <input
+      <input
+      name='delete'
         placeholder='Review ID:'
-          type="text"
-          value={reviewId}
-          onChange={handleInputChange}
-          className='rounded-xl p-1 m-2'
-        />
-      <button onClick={handleDeleteReview} className='bg-white text-blue-500 m-2 rounded-xl p-1' >Delete Review</button>
+        type="text"
+        value={reviewId}
+        onChange={handleInputChange}
+        className='rounded-xl p-1 m-2 border text-black'
+      />
+      <button onClick={handleDeleteReview} className='bg-white text-blue-500 m-2 rounded-xl p-1'>
+        Delete Review
+      </button>
     </div>
   );
 };

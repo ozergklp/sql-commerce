@@ -150,17 +150,15 @@ export const pool = mysql.createPool({
       throw error;
     }
   }
-  
-  export async function deleteReview() {
+  export async function deleteReview(reviewId) {
     try {
-      await pool.query(`
-        DELETE FROM Reviews
-        WHERE ReviewID = 21
-      `);
+      const [rows] = await pool.query('DELETE FROM Reviews WHERE ReviewID = ?', [reviewId]);
+      return rows;
     } catch (error) {
       throw error;
     }
   }
+  
 
   export async function getAveragePriceByCategory() {
     try {
@@ -176,4 +174,30 @@ export const pool = mysql.createPool({
       throw error;
     }
   }
-  
+  export async function getReviews() {
+    try {
+      const [rows] = await pool.query('SELECT ReviewID, Comment FROM Reviews');
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  export async function GetOrderStatus() {
+    try {
+      const [rows] = await pool.query('SELECT OrderID, OrderStatus FROM Orders');
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+  export async function GetAllSuppliers() {
+    try {
+      const [rows] = await pool.query('SELECT * FROM Suppliers');
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }

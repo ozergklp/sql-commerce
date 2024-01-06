@@ -14,6 +14,9 @@ import {
     updateOrderStatus,
     deleteReview,
     getAveragePriceByCategory,
+    getReviews,
+    GetOrderStatus,
+    GetAllSuppliers,
   } from '../database/database.js';
 
 const router = express.Router();
@@ -161,5 +164,35 @@ router.get('/users/count', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+  
+
+  router.get('/reviews/all', async (req, res) => {
+    try {
+      const reviews = await getReviews();
+      res.json(reviews);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.get('/orders/all', async (req, res) => {
+    try {
+      const reviews = await GetOrderStatus();
+      res.json(reviews);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  router.get('/suppliers/all', async (req, res) => {
+    try {
+      const reviews = await GetAllSuppliers();
+      res.json(reviews);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
 
   export default router;
