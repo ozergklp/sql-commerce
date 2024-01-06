@@ -1,56 +1,77 @@
-import React, { useEffect, useState } from 'react';
-import ProductPage from './components/ProductPage';
-import SearchBar from './components/SearchBar';
-import Categories from './components/Categories';
-import CartItems from './components/CartItems';
-
+import React, { useState } from 'react';
+import Button from './Button';
+import InsertComponent from './components/InsertComponent';
+import UpdateComponent from './components/UptadeOrderStatus';
+import DeleteComponent from './components/DeleteReview';
+import ButtonTwo from './ButtonTwo';
 
 const App = () => {
-  const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-  
+  const [result, setResult] = useState(null);
+  const [activeComponent, setActiveComponent] = useState(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('http://localhost:4000/products');
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
+  const handleButtonClick = async (data) => {
+    setResult(data);
+    setActiveComponent(null); // Reset the active component
+  };
 
-    fetchProducts();
-  }, []);
+  const handleButtonTwoClick = (endpoint) => {
+    setResult(null)
+    switch (endpoint) {
+      case 'insert-new-supplier':
+        setActiveComponent('insert');
+        break;
+      case 'update-order-status':
+        setActiveComponent('update');
+        break;
+      case 'delete-review':
+        setActiveComponent('delete');
+        break;
+      default:
+        setActiveComponent(null);
+        break;
+    }
+  };
+
 
   return (
-    <React.Fragment>
+    <>
 
-    <div className='bg-blue-50  min-h-screen pt-5'>
-      <SearchBar setProducts={setProducts}/>
+    <h1 className='text-center text-3xl m-2'>E-Commerce Admin Dashboard</h1>
+    <div className='flex flex-wrap justify-center'>
+      
 
-      <main className='flex'>
-        <div className='  w-3/4'>
-          <Categories setProducts={setProducts} />
-          <div className='flex flex-wrap justify-center '>
-            {products.map(product => (
-              <div className='bg-blue-100 p-2 m-5 w-52 rounded-xl' key={product.ProductID}>
-                <ProductPage product={product} cartItems={cartItems} setCartItems={setCartItems}/>
-              </div>
-            ))}
-          </div>
-        </div>
-        <section className=' w-1/4'>
-          <h1 className='mt-10 text-3xl text-center'> Cart </h1>  
-           {cartItems &&  <CartItems cartItems={cartItems} setCartItems={setCartItems} />}
-        </section>
-      </main>
+      <Button label="Get Total Users" endpoint="users/count" onClick={handleButtonClick} />
+      <Button label="Get Average Product Price" endpoint="products/average-price" onClick={handleButtonClick} />
+      <Button label="Get Max Stock Quantity" endpoint="products/max-stock" onClick={handleButtonClick} />
+      <Button label="Get Total Order Amount by User" endpoint="orders/total-amount-by-user" onClick={handleButtonClick} />
+      <Button label="Get Product Count by Category" endpoint="products/count-by-category" onClick={handleButtonClick} />
+      <Button label="Get Average Rating by Product" endpoint="products/average-rating" onClick={handleButtonClick} />
+      <Button label="Get Total Quantity by Order" endpoint="orders/total-quantity-by-order" onClick={handleButtonClick} />
+      <Button label="Get Average Price by Category" endpoint="average-price-by-category" onClick={handleButtonClick} />
+      <Button label="Get Average User Rating" endpoint="reviews/average-user-rating" onClick={handleButtonClick} />
+      <Button label="Get Review Count by Product" endpoint="reviews/count-by-product" onClick={handleButtonClick} />
 
+      <ButtonTwo label="Insert New Supplier" endpoint="insert-new-supplier" onClick={handleButtonTwoClick} />
+        <ButtonTwo label="Update Order Status" endpoint="update-order-status" onClick={handleButtonTwoClick} />
+        <ButtonTwo label="Delete Review by ID" endpoint="delete-review" onClick={handleButtonTwoClick} />
+      
+  
      
     </div>
 
-    </React.Fragment>
+
+    {activeComponent === 'insert' && <InsertComponent onInsert={handleButtonClick} />}
+      {activeComponent === 'update' && <UpdateComponent onUpdate={handleButtonClick} />}
+      {activeComponent === 'delete' && <DeleteComponent onDelete={handleButtonClick} />}
+    
+    {result && (
+        <div>
+          <h2>Result:</h2>
+          <pre>{JSON.stringify(result, null, 2)}</pre>
+        </div>
+      )}
+   
+    </>
     
   );
 };
